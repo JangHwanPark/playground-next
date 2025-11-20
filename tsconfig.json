@@ -11,10 +11,7 @@
    * - TypeScript가 여러 TSConfig를 독립 프로젝트로 인식하도록 함
    * - Next.js 클라이언트(app) / 서버(server) 환경을 분리할 수 있음
    * ────────────────────────────────────────────────────*/
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.server.json" }
-  ],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.server.json" }],
 
   "compilerOptions": {
     /* ─────────────────────────────────────────────────────
