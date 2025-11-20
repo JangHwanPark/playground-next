@@ -1,6 +1,7 @@
 {
   /* ─────────────────────────────────────────────────────
-   * 루트(tsconfig.json)의 공통 설정(baseUrl, paths)을 상속받음
+   * 서버 전용 TSConfig (tsconfig.server.json)
+   * - 루트(tsconfig.json)의 공통 설정(baseUrl, paths)을 상속받음
    * - 서버 환경(Route Handler, Server Actions, BFF 로직 등)을 위한 TSConfig
    * - DOM/JSX 불필요 → 클라이언트 설정과 명확히 분리
    * ────────────────────────────────────────────────────*/
@@ -57,9 +58,9 @@
     "noEmit": true
   },
   /* ─────────────────────────────────────────────────────
-   * 서버에 해당하는 파일 범위
+   * 서버에 해당하는 타입 체크 파일 범위
    * - route handlers (/app/../route.ts)
-   * - 서버 전용 로직 (/src/server)
+   * - 서버 전용 비즈니스, 서비스, 유틸 로직 (/src/server)
    * - API endpoints (/src/app/api)
    * ──────────────────────────────────────────────────── */
   "include": [
