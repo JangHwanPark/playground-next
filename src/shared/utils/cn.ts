@@ -7,16 +7,16 @@ import { twMerge} from 'tailwind-merge';
  * 내부적으로 `clsx`로 조건부 클래스 처리를 하고,
  * `tailwind-merge`로 Tailwind의 우선순위 충돌을 자동으로 해결합니다.
  *
- * ✔ 예시:
+ * 예시
  * cn("p-2", isActive && "bg-blue-500", "p-4")
  * → "p-4 bg-blue-500"
  *
- * ✔ 사용 목적:
+ * 사용 목적
  * - 조건부 className 처리
  * - Tailwind 클래스 충돌 해결 (p-2 vs p-4 등)
  * - 컴포넌트 스타일 유틸(buttonCn, inputCn 등)의 기반 함수로 사용
  *
- * ✔ 확장 포인트:
+ * 확장 포인트
  * - 프로젝트 스타일 가이드에 맞춘 component-level 유틸리티 생성 가능
  * - Tailwind를 제거해도 내부 구현만 교체하면 외부 호출부는 동일하게 유지됨
  *
