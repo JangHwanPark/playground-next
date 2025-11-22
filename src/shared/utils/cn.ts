@@ -1,5 +1,5 @@
-import { clsx, type ClassValue} from 'clsx';
-import { twMerge} from 'tailwind-merge';
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 /**
  * React/Tailwind 프로젝트에서 className 문자열을 안전하게 병합하기 위한 유틸리티 함수입니다.
@@ -33,4 +33,4 @@ import { twMerge} from 'tailwind-merge';
  */
 export const cn = (...inputs: ClassValue[]): string => {
   return twMerge(clsx(inputs));
-}
+};

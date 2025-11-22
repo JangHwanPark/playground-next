@@ -55,5 +55,5 @@ const METHOD = {
 
 export const HTTP = {
   STATUS,
-  METHOD
+  METHOD,
 } as const;

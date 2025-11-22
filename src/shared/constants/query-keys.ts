@@ -1,6 +1,4 @@
 /* ────────────────────────────────────────
  * 전역/공용 Query Key
  * ────────────────────────────────────────*/
-export const QUERY_KEYS = {
-
-} as const;
+export const QUERY_KEYS = {} as const;

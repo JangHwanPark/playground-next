@@ -1,3 +1,1 @@
-export const UI = {
-
-} as const;
+export const UI = {} as const;
