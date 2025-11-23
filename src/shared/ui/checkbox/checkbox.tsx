@@ -1,46 +1,138 @@
 'use client';
 import React from 'react';
 
-interface CheckboxProps extends Omit<React.ComponentProps<'input'>, 'onChange'> {
-  label?: React.ReactNode;
-  indeterminate?: boolean;
-  onCheckedChange?: (checked: boolean | 'indeterminate') => void;
+// ------------------------------------------------------------------
+// Types & Context
+// ------------------------------------------------------------------
+type CheckedState = boolean | 'indeterminate';
+
+interface CheckboxContextValue {
+  state: CheckedState;
+  disabled: boolean;
 }
 
-const Checkbox = ({ label, indeterminate = false, className, ref, ...props }: CheckboxProps) => {
-  // indeterminate 상태 처리 (DOM 직접 접근 필요)
-  // 외부에서 ref를 안 줬을 때 내부 로직을 위해 innerRef 사용
-  // 만약 외부 ref와 내부 제어를 동시에 완벽히 하려면
-  // mergeRefs 유틸리티가 필요할 수 있음
-  const innerRef = React.useRef<HTMLInputElement>(null);
-  React.useEffect(() => {
-    if (innerRef.current) {
-      innerRef.current.indeterminate = indeterminate;
-    }
-  }, [indeterminate]);
+const CheckboxContext = React.createContext<CheckboxContextValue | null>(null);
 
-  // 상태 계산
-  const isChecked = props.checked ?? false;
-  const [checked, setChecked] = React.useState(!!props.defaultChecked);
+const useCheckboxContext = () => {
+  const context = React.useContext(CheckboxContext);
+  if (!context) throw new Error('<Checkbox.*> component must be used within <Checkbox>');
+  return context;
+};
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setChecked(e.target.checked);
-    props.onChange?.(e); // 외부 onChange도 같이 호출
-  };
+// ------------------------------------------------------------------
+// Root Component (Provider)
+// ------------------------------------------------------------------
+interface CheckboxRootProps extends Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'onChange'> {
+  checked?: CheckedState;
+  defaultChecked?: boolean;
+  onCheckedChange?: (checked: CheckedState) => void;
+  disabled?: boolean;
+  name?: string;
+  value?: string;
+  required?: boolean;
+  ref?: React.Ref<HTMLLabelElement>;
+}
+
+const mergeRefs =
+  <T,>(...refs: (React.Ref<T> | undefined)[]) =>
+  (node: T | null) =>
+    refs.forEach((ref) => {
+      if (!ref) return;
+      if (typeof ref === 'function') ref(node);
+      else (ref as { current: T | null }).current = node;
+    });
+
+const CheckboxRoot = ({
+  checked,
+  defaultChecked,
+  onCheckedChange,
+  disabled = false,
+  name,
+  value,
+  required,
+  className,
+  id,
+  children,
+  ref,
+  ...props
+}: CheckboxRootProps) => {
+  const [internalChecked, setInternalChecked] = React.useState<CheckedState>(!!defaultChecked);
+    const isControlled = checked !== undefined;
+    const state = isControlled ? checked : internalChecked;
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
+    // Indeterminate 상태 동기화
+    React.useEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.indeterminate = state === 'indeterminate';
+      }
+    }, [state]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const nextChecked = e.target.checked;
+      if (!isControlled) setInternalChecked(nextChecked);
+      onCheckedChange?.(nextChecked);
+    };
+
+    const contextValue = React.useMemo(() => ({ state, disabled }), [state, disabled]);
 
   return (
-    <label>
-      <span data-checked={checked ? '' : undefined} aria-hidden="true"></span>
-      <input
-        type="checkbox"
-        className="sr-only"
-        checked={props.checked ?? checked}
-        onChange={handleChange}
-      />
-      {label && label}
-    </label>
+    <CheckboxContext.Provider value={contextValue}>
+      <span
+          ref={ref}
+          data-state={state === 'indeterminate' ? 'indeterminate' : state ? 'checked' : 'unchecked'}
+          data-disabled={disabled ? '' : undefined}
+          className={className}
+          {...props}
+        >
+          <input
+            ref={inputRef}
+            type="checkbox"
+            name={name}
+            value={value}
+            required={required}
+            disabled={disabled}
+            checked={state === 'indeterminate' ? false : !!state}
+            onChange={handleChange}
+            className="sr-only"
+          />
+          {children}
+        </span>
+      </CheckboxContext.Provider>
   );
 };
 
-export { Checkbox };
-export type { CheckboxProps };
+// ------------------------------------------------------------------
+// Indicator Component (체크 표시 아이콘 래퍼)
+// ------------------------------------------------------------------
+interface CheckboxIndicatorProps extends React.HTMLAttributes<HTMLSpanElement> {
+  /* 체크 안되어도 렌더링 할지 여부 */
+  forceMount?: boolean;
+  ref?: React.Ref<HTMLSpanElement>;
+};
+
+const CheckboxIndicator = ({children, forceMount ,ref, ...props}: CheckboxIndicatorProps) => {
+  const { state, disabled } = useCheckboxContext();
+    const isCheckedOrIndeterminate = state === true || state === 'indeterminate';
+    if (!forceMount && !isCheckedOrIndeterminate) return null;
+
+    return (
+      <span
+        ref={ref}
+        data-state={state === 'indeterminate' ? 'indeterminate' : state ? 'checked' : 'unchecked'}
+        data-disabled={disabled ? '' : undefined}
+        {...props}
+      >
+        {children}
+      </span>
+    );
+}
+
+// ------------------------------------------------------------------
+// Export (Dot Notation으로 묶기)
+// ------------------------------------------------------------------
+export const Checkbox = {
+  Root: CheckboxRoot,
+  Indicator: CheckboxIndicator,
+};
+export type { CheckboxRootProps };

@@ -2,18 +2,18 @@
 import React from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  ref?: React.Ref<HTMLInputElement>;
   invalid?: boolean;
 }
 
 const Input = ({
   invalid,
   disabled,
-  className,
   onFocus,
   onBlur,
   ref,
   ...rest
-}: InputProps & { ref?: React.Ref<HTMLInputElement> }) => {
+}: InputProps) => {
   const [focused, setFocused] = React.useState(false);
 
   const handleFocus: React.FocusEventHandler<HTMLInputElement> = (e) => {
@@ -31,7 +31,6 @@ const Input = ({
       ref={ref}
       aria-invalid={invalid || undefined}
       disabled={disabled}
-      className={className}
       data-disabled={disabled ? '' : undefined}
       data-invalid={invalid ? '' : undefined}
       data-focused={focused ? '' : undefined}
