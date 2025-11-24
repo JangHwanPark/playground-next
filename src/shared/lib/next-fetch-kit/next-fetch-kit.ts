@@ -104,8 +104,8 @@ export class NextFetchKit implements ApiMethods {
     // 헤더 병합
     const headers = new Headers(this.config.headers);
     if (options.headers) {
-      // 요청별 옵션
-      new Headers(options.headers).forEach((v, k) => headers.append(k, v));
+      // 요청별 옵션은 같은 키가 있으면 덮어씀
+      new Headers(options.headers).forEach((value, key) => headers.set(key, value));
     }
 
     // 기본 Accept
@@ -163,7 +163,7 @@ export class NextFetchKit implements ApiMethods {
       // 응답 결과 반환 (에러 객체 포함)
       if (!response.ok) {
         // HTTP 에러처리
-        const errorMessage = typeof data === 'string' ? data : (data?.message || response.statusText);
+        const errorMessage = typeof data === 'string' ? data : data?.message || response.statusText;
 
         return {
           success: false,
