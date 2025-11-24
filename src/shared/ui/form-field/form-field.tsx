@@ -154,6 +154,9 @@ const FormFieldDescription = ({
   );
 };
 
+// ------------------------------------------------------------------
+// Export UI
+// ------------------------------------------------------------------
 export const FormField = {
   Root: FormFieldRoot,
   Label: FormFieldLabel,
@@ -161,3 +164,13 @@ export const FormField = {
   Message: FormFiledMessage,
   Description: FormFieldDescription,
 };
+
+// ------------------------------------------------------------------
+// Export Types
+// ------------------------------------------------------------------
+export type { FormFieldRootProps, FormFieldError, FormFieldControlProps, FormFieldContextValue };
+
+// ------------------------------------------------------------------
+// Export Hook
+// ------------------------------------------------------------------
+export { useFormFieldContext as useFormField };

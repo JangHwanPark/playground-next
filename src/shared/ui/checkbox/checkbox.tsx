@@ -126,4 +126,13 @@ export const Checkbox = {
   Root: CheckboxRoot,
   Indicator: CheckboxIndicator,
 };
-export type { CheckboxRootProps };
+
+// ------------------------------------------------------------------
+// Export Types
+// ------------------------------------------------------------------
+export type { CheckboxContextValue, CheckboxRootProps, CheckboxIndicatorProps };
+
+// ------------------------------------------------------------------
+// Export Hook
+// ------------------------------------------------------------------
+export { useCheckboxContext as useCheckbox };
