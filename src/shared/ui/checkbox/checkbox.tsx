@@ -2,7 +2,7 @@
 import React from 'react';
 
 // ------------------------------------------------------------------
-// Types & Context
+// Types & Context & Context Hook
 // ------------------------------------------------------------------
 type CheckedState = boolean | 'indeterminate';
 
@@ -32,15 +32,6 @@ interface CheckboxRootProps extends Omit<React.LabelHTMLAttributes<HTMLLabelElem
   required?: boolean;
   ref?: React.Ref<HTMLLabelElement>;
 }
-
-const mergeRefs =
-  <T,>(...refs: (React.Ref<T> | undefined)[]) =>
-  (node: T | null) =>
-    refs.forEach((ref) => {
-      if (!ref) return;
-      if (typeof ref === 'function') ref(node);
-      else (ref as { current: T | null }).current = node;
-    });
 
 const CheckboxRoot = ({
   checked,
