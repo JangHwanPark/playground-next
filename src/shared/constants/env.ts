@@ -5,6 +5,8 @@ const CLIENT = {
   API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL ?? '',
   ENABLE_MOCK: process.env.NEXT_PUBLIC_ENABLE_MOCK === 'true',
   GA_TRACKING_ID: process.env.NEXT_PUBLIC_GA_TRACKING_ID ?? '',
+  SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
+  SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '',
 } as const;
 
 /* ────────────────────────────────────────
@@ -15,6 +17,8 @@ const SERVER = {
   NODE_ENV: process.env.NODE_ENV,
   DATABASE_URL: process.env.DATABASE_URL,
   SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY,
+  SUPABASE_URL: process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
+  SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '',
   JWT_SECRET: process.env.JWT_SECRET,
 } as const;
 
