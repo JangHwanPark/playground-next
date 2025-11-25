@@ -1,13 +1,5 @@
 import React from 'react';
-
-const mergeRefs =
-  <T,>(...refs: (React.Ref<T> | undefined)[]) =>
-  (node: T | null) =>
-    refs.forEach((ref) => {
-      if (!ref) return;
-      if (typeof ref === 'function') ref(node);
-      else (ref as { current: T | null }).current = node;
-    });
+import { mergeRefs } from '@/shared/utils';
 
 interface SlotProps extends React.HTMLAttributes<HTMLElement> {
   // children: React.ReactElement;
