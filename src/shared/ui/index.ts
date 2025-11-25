@@ -20,6 +20,12 @@ export type {
   FormFieldContextValue,
 } from '@/shared/ui/form-field/form-field';
 
+export { Dialog, useDialog } from '@/shared/ui/dialog';
+export type * from '@/shared/ui/dialog';
+
+export { Avatar, useAvatar } from '@/shared/ui/avatar';
+export type { AvatarRootProps, AvatarImageProps, AvatarFallbackProps, AvatarContextValue } from '@/shared/ui/avatar/avatar';
+
 // ------------------------------------------------------------------
 // Export Layout
 // ------------------------------------------------------------------
