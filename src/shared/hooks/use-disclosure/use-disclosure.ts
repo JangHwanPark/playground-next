@@ -1,6 +1,6 @@
 import React from 'react';
 
-const useDisclosure = (initialValue = false) => {
+export const useDisclosure = (initialValue = false) => {
   const [isOpen, setIsOpen] = React.useState(initialValue);
 
   const onOpen = React.useCallback(() => setIsOpen(true), []);

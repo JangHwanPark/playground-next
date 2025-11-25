@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useDisclosure } from '@/hooks/useDisclosure';
+import { useDisclosure } from '@/shared/hooks';
 import { composeEventHandlers } from '@/shared/utils';
 
 // ------------------------------------------------------------------
@@ -58,7 +58,7 @@ interface DialogTriggerProps {
 const DialogTrigger = ({ children }: DialogTriggerProps) => {
   const { onOpen, isOpen } = useDialogContext();
   const child = children as React.ReactElement<React.HTMLAttributes<HTMLElement>>;
-  return React.cloneElement(children, {
+  return React.cloneElement(child, {
     // a11y
     'aria-haspopup': 'dialog',
     'aria-expanded': isOpen,
