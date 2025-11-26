@@ -8,10 +8,12 @@ export type { InputProps } from '@/shared/ui/input';
 
 export { Checkbox, useCheckbox } from '@/shared/ui/checkbox';
 export type {
+  CheckedState,
   CheckboxContextValue,
   CheckboxRootProps,
   CheckboxIndicatorProps,
 } from '@/shared/ui/checkbox';
+
 export { FormField, useFormField } from '@/shared/ui/form-field';
 export type {
   FormFieldRootProps,
@@ -24,7 +26,21 @@ export { Dialog, useDialog } from '@/shared/ui/dialog';
 export type * from '@/shared/ui/dialog';
 
 export { Avatar, useAvatar } from '@/shared/ui/avatar';
-export type { AvatarRootProps, AvatarImageProps, AvatarFallbackProps, AvatarContextValue } from '@/shared/ui/avatar/avatar';
+export type {
+  AvatarRootProps,
+  AvatarImageProps,
+  AvatarFallbackProps,
+  AvatarContextValue,
+} from '@/shared/ui/avatar/avatar';
+
+export { Select, useSelect } from '@/shared/ui/select';
+export type {
+  SelectRootProps,
+  SelectTriggerProps,
+  SelectContentProps,
+  SelectItemProps,
+  SelectValueProps,
+} from '@/shared/ui/select/select';
 
 // ------------------------------------------------------------------
 // Export Layout

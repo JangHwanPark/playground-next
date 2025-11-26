@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 // Storybook 메타데이터
 const meta: Meta<typeof Accordion.Root> = {
-  title: 'UI/Accordion',
+  title: 'Primitive Components/Accordion',
   component: Accordion.Root,
   parameters: {
     layout: 'centered',

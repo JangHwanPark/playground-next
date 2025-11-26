@@ -13,7 +13,7 @@ const INVALID_IMAGE_URL = 'invalid-path-to-trigger-error';
 // Meta Data
 // ------------------------------------------------------------------
 const meta: Meta<typeof Avatar.Root> = {
-  title: 'UI/Avatar',
+  title: 'Primitive Components/Avatar',
   component: Avatar.Root,
   parameters: {
     layout: 'centered',

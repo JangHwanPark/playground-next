@@ -130,7 +130,7 @@ export const Checkbox = {
 // ------------------------------------------------------------------
 // Export Types
 // ------------------------------------------------------------------
-export type { CheckboxContextValue, CheckboxRootProps, CheckboxIndicatorProps };
+export type { CheckedState, CheckboxContextValue, CheckboxRootProps, CheckboxIndicatorProps };
 
 // ------------------------------------------------------------------
 // Export Hook
