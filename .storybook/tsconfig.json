@@ -3,8 +3,15 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "baseUrl": "../",
     "paths": {
-      "@/*": ["../src/*"]
+      "@/*": ["src/*"],
+      "@app/*": ["src/app/*"],
+      "@entities/*": ["src/entities/*"],
+      "@features/*": ["src/features/*"],
+      "@shared/*": ["src/shared/*"],
+      "@widgets/*": ["src/widgets/*"],
+      "@stories/*": ["src/stories/*"]
     }
   },
   "include": ["../.storybook/**/*", "../src/**/*"]
